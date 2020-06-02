@@ -1,0 +1,7 @@
+#!/bin/bash
+
+# just a dummy script to simulate some process
+# prepend a string to each line read from stdin
+while read LINE; do
+    echo "foo $LINE"
+done

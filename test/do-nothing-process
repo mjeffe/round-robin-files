@@ -1,0 +1,7 @@
+#!/bin/bash
+
+# just a dummy script to simulate some process
+# actually does nothing but read each line from stdin and write it to stdout
+while read LINE; do
+    echo "$LINE"
+done
