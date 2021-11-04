@@ -11,6 +11,12 @@ code, so should compile for you without any trouble.
 
 ## Usage
 
+`rrout` reads records from an input file (or stdin) and distributes them (in
+round robin order) to multiple output files.
+
+`rrin` reads one record at a time from multiple input files (in round robin
+order) and writes the combined output to stdout.
+
 I use these utilities in shell scripts, reading and writing to named pipes.
 This allows me to set up parallel pipelines on some particularly slow process.
 Here is a generic example (with error checking or other production necessary
@@ -41,10 +47,3 @@ code removed for clarity).
     wait
 
     _cleanup
-
-`rrout` reads records from an input file (or stdin) and distributes them (in
-round robin order) to multiple output files.
-
-`rrin` reads one record at a time from multiple input files (in round robin
-order) and writes the combined output to stdout.
-
