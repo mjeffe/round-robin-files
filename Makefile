@@ -71,7 +71,7 @@ clean:
 
 .PHONY: test
 test:
-	cd test && run_tests.sh
+	cd test && ./run_tests.sh
 
 
 CHECK= \
