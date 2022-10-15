@@ -9,6 +9,16 @@ systems. The two main programs `rrin` and `rrout` simply read and write
 records from/to multiple files to/from a single file. These are pure C
 code, so should compile for you without any trouble.
 
+## Compile
+
+You should simply be able to run
+```
+make
+make test
+```
+
+Then copy `rrin` and `rrout` to somewhere in your path (`~/bin/` for example)
+
 ## Usage
 
 `rrout` reads records from an input file (or stdin) and distributes them (in
