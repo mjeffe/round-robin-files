@@ -20,65 +20,65 @@
 #define VERSION "0.3"
 #define BUFSZ 65536   /* max record length */
 
-int main(int argc, char **argv) { 
-    FILE *infile = NULL; 
+int main(int argc, char **argv) {
+    FILE *infile = NULL;
     FILE *outfiles[128];
     char *buffer;
 
-    int n = 0; 
-    int i = 0; 
+    int n = 0;
+    int i = 0;
 
-    buffer = (char *) malloc(BUFSZ); 
+    buffer = (char *) malloc(BUFSZ);
 
-    if (argc < 4) { 
-        fprintf(stderr, "%s: insuficient arguments...\n", argv[0]); 
-        fprintf(stderr, "\n"); 
-        fprintf(stderr, "usage: %s infile [or - for stdin] outfile1 outfile2 ...\n", argv[0]); 
-        fprintf(stderr, "\n"); 
-        fprintf(stderr, "description: %s distributes records from the input file (or stdin)\n", argv[0]); 
-        fprintf(stderr, "equally among the output files in round robin order.\n"); 
-        fprintf(stderr, "\n"); 
+    if (argc < 4) {
+        fprintf(stderr, "%s: insuficient arguments...\n", argv[0]);
+        fprintf(stderr, "\n");
+        fprintf(stderr, "usage: %s infile [or - for stdin] outfile1 outfile2 ...\n", argv[0]);
+        fprintf(stderr, "\n");
+        fprintf(stderr, "description: %s distributes records from the input file (or stdin)\n", argv[0]);
+        fprintf(stderr, "equally among the output files in round robin order.\n");
+        fprintf(stderr, "\n");
         fprintf(stderr, "%s version: %s\n",argv[0], VERSION);
         fprintf(stderr, "Report any comments or bugs to Matt - matt@mattjeffery.dev\n");
         fprintf(stderr, "\n");
-        exit(1); 
+        exit(1);
     }
 
     if (!strcmp(argv[1], "-")) {
-        infile = stdin; 
+        infile = stdin;
     } else {
-        infile = fopen(argv[1], "r"); 
+        infile = fopen(argv[1], "r");
     }
 
-    if (!infile) { 
-        fprintf(stderr, "%s: Can't open input file %s\n", argv[0], argv[1]); 
-        exit(1); 
+    if (!infile) {
+        fprintf(stderr, "%s: Can't open input file %s\n", argv[0], argv[1]);
+        exit(1);
     }
-    
-    for (n = 0; n < (argc - 2); n++) { 
-        if (NULL == (outfiles[n] = fopen(argv[n+2], "w"))) { 
-            fprintf(stderr, "%s: Can't open output file %s\n", argv[0], argv[n+2]); 
-            exit(1); 
+
+    for (n = 0; n < (argc - 2); n++) {
+        if (NULL == (outfiles[n] = fopen(argv[n+2], "w"))) {
+            fprintf(stderr, "%s: Can't open output file %s\n", argv[0], argv[n+2]);
+            exit(1);
         }
-    } 
-    
+    }
+
     /* round robin the input records to the output files */
-    while (fgets(buffer, BUFSZ, infile)) { 
-        fputs(buffer, outfiles[i++]); 
+    while (fgets(buffer, BUFSZ, infile)) {
+        fputs(buffer, outfiles[i++]);
         if (i == n) {
-            i = 0; 
+            i = 0;
         }
     }
 
     if (infile != stdin) {
-        fclose(infile); 
+        fclose(infile);
     }
 
     for (i = 0; i < n; i++) {
-        fclose(outfiles[i]); 
+        fclose(outfiles[i]);
     }
-    
-    exit(0); 
+
+    exit(0);
 }
-    
+
 
